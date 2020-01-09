@@ -18,7 +18,7 @@ class ConfigReader(object):
 
 class Config(ConfigReader):
     DEBUG = True
-    PORT_APP = 8083
+    PORT_APP = 8043
     MAIL_USE_TLS = True
     # Включение защиты против "Cross-site Request Forgery (CSRF)"
     CSRF_ENABLED = True
