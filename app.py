@@ -3,7 +3,6 @@ from flask_mail import Mail, Message
 from flask_script import Manager, Server
 from threading import Thread
 
-from flask_sslify import SSLify
 
 from config import Config, ProductionConfig, DevelopmentConfig
 
@@ -23,8 +22,6 @@ if INSTALLATION == "PROD":
 else:
     HOST = DevelopmentConfig.HOST
     DEBUG = True
-# context = ('homepi76.ru.crt', 'homepi76.ru.key')
-# sslify = SSLify(app)
 manager = Manager(app)
 
 manager.add_command("runserver", Server(use_debugger=DEBUG, host=HOST, port=PORT,
@@ -37,12 +34,9 @@ def async_send_mail(app, msg, mail):
 
 
 def send_email(email_sender, text, topic):
-    print(f"-------------{email_sender} {text} {topic}--------------")
     mail = Mail(app)
     message = Message(topic, recipients=[config_app.MAIL_USERNAME])
     message.html = render_template("email.html", text=text, email_sender=email_sender)
-    # with app.app_context():
-    #     mail.send(message)
     async_send_mail(app, message, mail)
     thr = Thread(target=async_send_mail,  args=[app,  message, mail])
     thr.start()
@@ -63,7 +57,4 @@ def index():
 
 
 if __name__ == '__main__':
-    # app.debug = True
-    # context = ('homepi76.ru.crt', 'homepi76.ru.key')
-    # app.run(port=8433, ssl_context=context )
     manager.run()

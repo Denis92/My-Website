@@ -25,24 +25,6 @@ class Config(ConfigReader):
     SECRET_KEY = 'YOUR_RANDOM_SECRET_KEY'
     def __init__(self):
         super().__init__("config.ini")
-    # Определяет, включен ли режим отладки
-    # В случае если включен, flask будет показывать
-    # подробную отладочную информацию. Если выключен -
-    # - 500 ошибку без какой либо дополнительной информации.
-        self.API_KEY_TG = self.read_config("API_KEY", "API_KEY_TG")
-        self.API_KEY_DIALOG = self.read_config("API_KEY", "API_KEY_DIALOG")
-        self.API_KEY_WEATHER = self.read_config("API_KEY", "API_KEY_WEATHER")
-        self.IP_LAMP = self.read_config("IP", "IP_LAMP")
-        self.IP_BROKER = self.read_config("IP", "IP_BROKER")
-        DB_NAME = self.read_config("DB_SETTING", "DB_NAME")
-        USER_DB = self.read_config("DB_SETTING", "USER_DB")
-        PASSWORD = self.read_config("DB_SETTING", "PASSWORD")
-        HOST = self.read_config("DB_SETTING", "HOST")
-        self.PORT = self.read_config("DB_SETTING", "PORT")
-        self.USER_BROKER = self.read_config("MQTT_BROKER", "USER_BROKER")
-        self.PASSWORD_BROKER = self.read_config("MQTT_BROKER", "PASSWORD_BROKER")
-        self.SQLALCHEMY_DATABASE_URI = f'postgresql://{USER_DB}:{PASSWORD}@{HOST}/{DB_NAME}'
-        self.SQLALCHEMY_TRACK_MODIFICATIONS = True
         self.INSTALLATION = self.read_config("INSTALLATION", "TYPE")
         self.MAIL_SERVER = self.read_config("MAIL", "MAIL_SERVER")
         self.MAIL_PORT = self.read_config("MAIL", "MAIL_PORT")
