@@ -1,0 +1,52 @@
+.main{
+	height: 1000px;
+}
+.padd{
+	margin-bottom:  10px;
+}
+.nav-item{
+	padding-right: 20px;
+}
+.nav-link{
+	font-size: 1.1em;
+} 
+.fa-code{
+	color: #e54d26;
+}
+.fa-bold{
+	color: #563d7c;
+}
+.fa-css3{
+	color: #2163af;
+}
+.fa-python{
+	color: #2163af;
+}
+.fa-code, .fa-bold, .fa-css3, .fa-python{
+	font-size: 4em;
+}
+.my_serf img:hover{
+	box-shadow: 10px 20px 20px 0px rgba(33, 33, 33, 0.35);
+}
+
+.fa-github, .fa-telegram, .fa-google-plus, .fa-vk{
+	font-size: 2.2em;
+	padding-left: 1em;
+	color:#000;
+}
+.fa-github:hover{
+	color:#fff !important;
+}
+.fa-telegram:hover{
+	color:#fff;
+} 
+.fa-google-plus:hover{
+	color:#fff;
+}
+.fa-vk:hover{
+	color:#fff;
+}
+.over-link a{
+	color: #fff !important;
+	text-decoration: none !important;
+}
