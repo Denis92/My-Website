@@ -2,6 +2,9 @@ from flask import Flask, request, render_template, redirect
 from flask_mail import Mail, Message
 from flask_script import Manager, Server
 from threading import Thread
+import os
+import requests
+from requests.auth import HTTPBasicAuth
 
 
 from config import Config, ProductionConfig, DevelopmentConfig
@@ -53,8 +56,14 @@ def mail():
 
 @app.route('/', methods=["GET"])
 def index():
-    return render_template("index.html")
+    pic_list = os.listdir(os.path.join(os.getcwd(), "static", "img", "certificates"))
+    link_pic_list = [os.path.join("..", "static", "img", "certificates", pic_item) for pic_item in pic_list]
+    pic_name_list = [pic_item[:-4] for pic_item in pic_list]
+    # r = requests.options('https://homepi76.ru:8443/auth/', auth=HTTPBasicAuth('Denis', 'progavr51'))
+    # print(link_pic_list)
+    return render_template("index.html", link_pic=link_pic_list, pic_name_list=pic_name_list, count_pic_cert=len(pic_list))
 
 
 if __name__ == '__main__':
     manager.run()
+

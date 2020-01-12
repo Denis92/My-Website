@@ -4,6 +4,16 @@
 .padd{
 	margin-bottom:  10px;
 }
+
+.col-xs-6{
+	padding: 1rem;
+}
+.col-md-6{
+	padding: 1rem;
+}
+.col-sm-6{
+	padding: 1rem;
+}
 .nav-item{
 	padding-right: 20px;
 }
