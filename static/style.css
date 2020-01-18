@@ -19,7 +19,11 @@
 }
 .nav-link{
 	font-size: 1.1em;
-} 
+}
+.learn_tech{
+	padding: 1rem;
+	margin: 0px;
+}
 .fa-code{
 	color: #e54d26;
 }
