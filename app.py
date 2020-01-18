@@ -65,7 +65,7 @@ def index():
     pic_list = os.listdir(os.path.join(os.getcwd(), "static", "img", "certificates"))
     link_pic_list = [os.path.join("..", "static", "img", "certificates", pic_item) for pic_item in pic_list]
     pic_name_list = [pic_item[:-4] for pic_item in pic_list]
-    user_name = request.cookies.get("user_name", "%UserName%")
+    user_name = request.cookies.get("user_name", "пользователь")
     render = render_template("index.html",
                            link_pic=link_pic_list,
                            pic_name_list=pic_name_list,
