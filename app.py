@@ -3,7 +3,7 @@ from flask_mail import Mail, Message
 from flask_script import Manager, Server
 from threading import Thread
 import os
-import requests
+# import requests
 from requests.auth import HTTPBasicAuth
 
 
