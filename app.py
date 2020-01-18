@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for, make_response
 from flask_mail import Mail, Message
 from flask_script import Manager, Server
 from threading import Thread
@@ -45,22 +45,40 @@ def send_email(email_sender, text, topic):
     thr.start()
     return thr
 
+
 @app.route('/mail', methods=["POST"])
 def mail():
     email_sender = request.form["email"]
     topic = request.form["topic"]
     message_text = request.form["message-text"]
     send_email(email_sender=email_sender, text=message_text, topic=topic)
-    return redirect(f"/")
+    resp = make_response(redirect('/'))
+    resp.set_cookie("message", "OK", max_age=3)
+    return resp
 
 
-@app.route('/', methods=["GET"])
+@app.route('/', methods=["GET", "POST"])
 def index():
+    show_message = False
+    if request.cookies.get("message") == "OK":
+        show_message = True
     pic_list = os.listdir(os.path.join(os.getcwd(), "static", "img", "certificates"))
     link_pic_list = [os.path.join("..", "static", "img", "certificates", pic_item) for pic_item in pic_list]
     pic_name_list = [pic_item[:-4] for pic_item in pic_list]
-    # print(link_pic_list)
-    return render_template("index.html", link_pic=link_pic_list, pic_name_list=pic_name_list, count_pic_cert=len(pic_list))
+    user_name = request.cookies.get("user_name", "%UserName%")
+    render = render_template("index.html",
+                           link_pic=link_pic_list,
+                           pic_name_list=pic_name_list,
+                           count_pic_cert=len(pic_list),
+                           show_message=show_message,
+                            user_name=user_name)
+    if request.method == "POST":
+        user_name = request.form["name"]
+        print(user_name)
+        resp = make_response(redirect("/"))
+        resp.set_cookie("user_name", user_name, max_age=60*60*24*31)
+        return resp
+    return render
 
 
 if __name__ == '__main__':
