@@ -3,6 +3,7 @@ from flask_mail import Mail, Message
 from flask_script import Manager, Server
 from threading import Thread
 import os
+import pymorphy2
 # import requests
 from requests.auth import HTTPBasicAuth
 
@@ -59,22 +60,26 @@ def mail():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    dict_gender = {"masc": "Уважаемый", "femn": "Уважаемая", "neut": "Уважаемое"}
     show_message = False
     if request.cookies.get("message") == "OK":
         show_message = True
+    morph = pymorphy2.MorphAnalyzer()
     pic_list = os.listdir(os.path.join(os.getcwd(), "static", "img", "certificates"))
     link_pic_list = [os.path.join("..", "static", "img", "certificates", pic_item) for pic_item in pic_list]
     pic_name_list = [pic_item[:-4] for pic_item in pic_list]
     user_name = request.cookies.get("user_name", "пользователь")
+    p = morph.parse(user_name)[0]
+
     render = render_template("index.html",
-                           link_pic=link_pic_list,
-                           pic_name_list=pic_name_list,
-                           count_pic_cert=len(pic_list),
-                           show_message=show_message,
-                            user_name=user_name)
+                            link_pic=link_pic_list,
+                            pic_name_list=pic_name_list,
+                            count_pic_cert=len(pic_list),
+                            show_message=show_message,
+                            user_name=user_name,
+                            greeting_gender=dict_gender.get(p.tag.gender, "Уважаемый(ая)"))
     if request.method == "POST":
         user_name = request.form["name"]
-        print(user_name)
         resp = make_response(redirect("/"))
         resp.set_cookie("user_name", user_name, max_age=60*60*24*31)
         return resp
