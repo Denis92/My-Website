@@ -13,6 +13,32 @@
     <title>Сайт Дениса Горшкова</title>
   </head>
   <body>
+    <input type="image" onclick="topFunction()" id="topBtn" src="../static/img/3.png">
+{#    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>#}
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("topBtn").style.display = "block";
+            } else {
+                document.getElementById("topBtn").style.display = "none";
+            }
+        }
+
+        var topFunction = function() {
+            if (document.body.scrollTop>0 || document.documentElement.scrollTop>0) {
+                window.scrollBy(0,-50);
+                setTimeout(topFunction, 10);
+            }
+        }
+    </script>
+    <script>
+        function scrollToId(id){
+            const id_el = document.getElementById(id);
+            id_el.scrollIntoView({behavior: "smooth"});
+        }
+    </script>
 	<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top padd">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">#Python</a>
@@ -22,16 +48,16 @@
 			<div class="collapse navbar-collapse" id="navbar_menu">
 				<ul class="navbar-nav ml-auto my_nav">
 					<li class="nav-item">
-						<a class="nav-link" href=" #top">О себе</a>
+						<a type="submit" onclick="scrollToId('top')" class="nav-link" href="#1">О себе</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href=" #prodg">Проекты</a>
+						<a onclick="scrollToId('prodg')" class="nav-link" href="#2">Проекты</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href=" #serft">Сертификаты</a>
+						<a onclick="scrollToId('serft')" class="nav-link" href="#3">Сертификаты</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href=" #contact">Контакты</a>
+						<a onclick="scrollToId('contact')" class="nav-link" href="#4">Контакты</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="modal" data-target="#feedback" href="#">Обратная связь</a>
@@ -66,7 +92,7 @@
         </div>
     </div>
 	<div class="container">
-        <a href="#" name="top"></a>
+        <a href="#" id="top"></a>
 		<h4 class="display-5 text-center">Добро Пожаловать.</h4><br>
 		<p class="text-justify">{{ greeting_gender }} {{ user_name }}, рад приветствовать Вас на своём личном сайте, меня зовут Горшков Денис.
             Данный ресурс призван рассказать о проектах которыми я занимаюсь на данный момент, так же о имеющихся знаниях и умениях.
@@ -85,58 +111,66 @@
 	</div>
 
     <div class="container">
-        <a href="#" name="prodg"></a>
-        <h4 class="display-5 text-center">Проекты</h4><br>
-        <h5 class="display-6 text-left text-center">"Сайт Визитка"</h5>
-        <p class="text-justify"><b>Описание проекта:</b>
-            В большей степени мне нравится backend разработка, но во время прохождения курсов на GeekBrains я узнал о такой штуке как Bootstrap,
-            он позволяет без погружения в JavaScript реализовывать веб-страницы с интересным функционалом и мне захотелось немного поиграться с ним
-            в итоге появился данный сайт. Серверная часть сайта написана на Python с использованием микрофреймворка Flask, а сам сервер живет на Raspberry Pi 3
-        </p>
-        <a class="btn btn-primarybtn btn-outline-dark" href="https://github.com/Denis92/My-Website" role="button">Ссылка на GITHub</a>
-        <h5 class="display-6 text-left text-center">"Умный Дом. REST API"</h5>
-        <p class="text-justify"><b>Описание проекта:</b> Данный проект предусматривает реализацию REST API для управления IoT устройствами такими как:
-            <ol>
-                <li> Умный обогреватель </li>
-                <li> Умная лампочка Wi-Fi Xiaomi </li>
-                <li> Умная лампочка Zigbee Ikea </li>
-                <li> Умный увлажнитель воздуха</li>
-                <li> Автоматическая система автополива цветов </li>
-                <li> Роботизированная система для патрулирования квартиры </li>
-            </ol>
-        Помимо управлния перечисленными устройствами сервис позволяет получать информацию о температуре и влажности в квартире.
-        </p>
-        <p class="text-justify"><b>Цель проекта:</b>
-            <ol>
-                <li> Изучить принципы построения Backend приложений и реализовать REST API для дальнейшей работы с Fronted приложением</li>
-                <li> Разработать собственные IoT устройства, в рамках данного проекта, а именно
-                    <ol>
-                        <li> Роботизированную систему для патрулирования квартиры </li>
-                        <li> Умный обогреватель</li>
-                        <li> Умный увлажнитель воздуха</li>
-                        <li> Автоматическая система автополива цветов</li>
-                    </ol>
-                </li>
-            </ol>
-        </p>
-        <p class="text-justify"><b>Ссылка на GITHub:</b> Закрытый репозиторий</p>
-        <h5 class="display-6 text-left text-center">"Телеграмм Бот"</h5>
-        <p class="text-justify"><b>Цель проекта:</b> Изучить принципы работы с API Телеграмма и разработать бота, который будет обладать следеющим функционалом:
-            <ol>
-                <li> Показывать погоду в любом месте мира, как по текстовому запросу, так и по указанию на карте. Так же выдавать погоду по подписке на текущий день </li>
-                <li> Отправлять напоминания</li>
-                <li> Управлять рядом имеющихся IoT устройств </li>
-                <li> Отобращать некоторую информацию о состоянии сервера </li>
-            </ol>
-        </p>
-        <p class="text-justify"><b>Ссылка на GITHub:</b> Закрытый репозиторий</p>
+        <a href="#" id="prodg"></a>
+        <h4 class="display-5 text-center">Проекты</h4>
+        <div class="project_item">
+            <h5 class="display-6 text-left text-center">"Сайт Визитка"</h5>
+            <p class="text-justify"><b>Описание проекта:</b>
+                В большей степени мне нравится backend разработка, но во время прохождения курсов на GeekBrains я узнал о такой штуке как Bootstrap,
+                он позволяет без погружения в JavaScript реализовывать веб-страницы с интересным функционалом и мне захотелось немного поиграться с ним
+                в итоге появился данный сайт. Серверная часть сайта написана на Python с использованием микрофреймворка Flask, а сам сервер живет на Raspberry Pi 3
+            </p>
+            <a class="btn btn-primarybtn btn-outline-dark" href="https://github.com/Denis92/My-Website" role="button">Ссылка на GITHub</a>
+        </div>
+
+        <div class="project_item">
+            <h5 class="display-6 text-left text-center">"Умный Дом. REST API"</h5>
+            <p class="text-justify"><b>Описание проекта:</b> Данный проект предусматривает реализацию REST API для управления IoT устройствами такими как:
+                <ol>
+                    <li> Умный обогреватель </li>
+                    <li> Умная лампочка Wi-Fi Xiaomi </li>
+                    <li> Умная лампочка Zigbee Ikea </li>
+                    <li> Умный увлажнитель воздуха</li>
+                    <li> Автоматическая система автополива цветов </li>
+                    <li> Роботизированная система для патрулирования квартиры </li>
+                </ol>
+            Помимо управлния перечисленными устройствами сервис позволяет получать информацию о температуре и влажности в квартире.
+            </p>
+            <p class="text-justify"><b>Цель проекта:</b>
+                <ol>
+                    <li> Изучить принципы построения Backend приложений и реализовать REST API для дальнейшей работы с Fronted приложением</li>
+                    <li> Разработать собственные IoT устройства, в рамках данного проекта, а именно
+                        <ol>
+                            <li> Роботизированную систему для патрулирования квартиры </li>
+                            <li> Умный обогреватель</li>
+                            <li> Умный увлажнитель воздуха</li>
+                            <li> Автоматическая система автополива цветов</li>
+                        </ol>
+                    </li>
+                </ol>
+            </p>
+            <p class="text-justify"><b>Ссылка на GITHub:</b> Закрытый репозиторий</p>
+        </div>
+
+        <div class="project_item">
+            <h5 class="display-6 text-left text-center">"Телеграмм Бот"</h5>
+            <p class="text-justify"><b>Цель проекта:</b> Изучить принципы работы с API Телеграмма и разработать бота, который будет обладать следеющим функционалом:
+                <ol>
+                    <li> Показывать погоду в любом месте мира, как по текстовому запросу, так и по указанию на карте. Так же выдавать погоду по подписке на текущий день </li>
+                    <li> Отправлять напоминания</li>
+                    <li> Управлять рядом имеющихся IoT устройств </li>
+                    <li> Отобращать некоторую информацию о состоянии сервера </li>
+                </ol>
+            </p>
+            <p class="text-justify"><b>Ссылка на GITHub:</b> Закрытый репозиторий</p>
+        </div>
 	</div>
 
 	<div class="container-fluid">
         <h4 class="display-5 text-center">Сертификаты</h4><br>
 	</div>
     <div class="container">
-        <a href="#" name="serft"></a>
+        <a href="#" id="serft"></a>
         <div class="row justify-content-center">
             <div class="col-9">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -170,7 +204,7 @@
     </div>
 
 	<div class="container-fluid learn_tech" >
-		<a href="#" name="learn_tech"></a>
+		<a href="#" id="learn_tech"></a>
 		<h5 class="display-5 text-center learn_tech" > Изпользуемые технологии и языки</h5><br>
 		<div class="row text-center">
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -254,7 +288,7 @@
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
 					<br><h3 class="text-center">Контакты</h3><br>
-					<a target="_blank" name="contact" href="https://github.com/Denis92"><i class="fab fa-github"></i></a>
+					<a target="_blank" id="contact" href="https://github.com/Denis92"><i class="fab fa-github"></i></a>
 					<a target="_blank" href="https://t.me/Denis_Gorshkov"><i class="fab fa-telegram"></i></a>
 					<a target="_blank" href="https://plus.google.com/u/0/113256146961720232828?tab=mX"><i class="fab fa-google-plus"></i></a>
 					<a target="_blank" href="https://vk.com/denis_0x00ff00"><i class="fab fa-vk"></i></a>
