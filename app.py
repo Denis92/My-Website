@@ -6,8 +6,11 @@ import os
 import pymorphy2
 # import requests
 from requests.auth import HTTPBasicAuth
+from logModule.log_config import LogLevel
 
 from config import Config, ProductionConfig, DevelopmentConfig
+
+logg = LogLevel(file_name="config_logg.ini", rotate_on=False)
 
 app = Flask(__name__)
 config_app = Config()
@@ -57,6 +60,8 @@ def mail():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    logg.info_log(f"User host {request.headers.get('Host')}")
+    logg.info_log(f"User Cookie {request.headers.get('Cookie')}")
     dict_gender = {"masc": "Уважаемый", "femn": "Уважаемая", "neut": "Уважаемое"}
     show_message = False
     if request.cookies.get("message") == "OK":
