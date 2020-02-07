@@ -60,7 +60,7 @@ def mail():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    logg.info_log(f"User host {request.headers.get('Host')}")
+    logg.info_log(f"User host {request.remote_addr}")
     logg.info_log(f"User Cookie {request.headers.get('Cookie')}")
     dict_gender = {"masc": "Уважаемый", "femn": "Уважаемая", "neut": "Уважаемое"}
     show_message = False
